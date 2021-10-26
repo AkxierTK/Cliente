@@ -36,14 +36,14 @@ function productoMatricial(filas1, columnas1, filas2, columnas2, matriz1, matriz
     for (let f = 0; f < filas1; f++) {
         matriz3[f] = new Array(columnas2);
     }
-    for(let f=0;f<filas1;f++){
+    for(let f=0;f<filas1;f++){//2 matriz1=2/3 matriz2=3/3 matriz3=2/3 2 filas 
         
-        for(let j=0;j<columnas1;j++){
-            let valor;
-            for(let x=0;x<columnas2;x++){
-                valor=+matriz1[f][j]*matriz2[j][x];
+        for(let j=0;j<columnas2;j++){//3
+            let valor=0;
+            for(let x=0;x<columnas1;x++){//3
+                valor=valor+(matriz1[f][x]*matriz2[x][j]);
             }
-            document.write(valor+" ");
+            matriz3[f][j]=valor;
         }
     }
     
@@ -83,7 +83,7 @@ if (opcion == 1) {
             matriz1[f] = new Array(columnas1);
         }
         let matriz2 = new Array(columnas2);
-        //Preguntar a Jose Juan 
+
         for (let f = 0; f < filas2; f++) {
             matriz2[f] = new Array(columnas2);
         }
@@ -93,9 +93,7 @@ if (opcion == 1) {
         recorrerArrayBidimensional(filas1, columnas1, matriz1);
         document.write("Mostramos el array creado 2:<br>");
         recorrerArrayBidimensional(filas2, columnas2, matriz2);
-        document.write("<br>");
-        document.write("<br>");
-        document.write("Mostramos Operacion Matricial");
+        document.write("Mostramos Operacion Matricial<br>");
         let matriz=productoMatricial(filas1,columnas1,filas2,columnas2,matriz1,matriz2);
         recorrerArrayBidimensional(filas1,columnas2,matriz);
 
