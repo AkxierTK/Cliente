@@ -23,7 +23,7 @@ function recorrerArrayBidimensional(filas, columnas, matriz) {
     }
 }
 
-function multiplicarvaloresArray(filas, columnas, matriz, valor) {
+function multiplicarValoresArray(filas, columnas, matriz, valor) {
     for (let i = 0; i < filas; i++) {
         for (let j = 0; j < columnas; j++) {
             matriz[i][j] *= valor;
@@ -36,18 +36,20 @@ function productoMatricial(filas1, columnas1, filas2, columnas2, matriz1, matriz
     for (let f = 0; f < filas1; f++) {
         matriz3[f] = new Array(columnas2);
     }
-    for (let i = 0; i < filas1; i++) {
-        for (let j = 0; j < columnas1; j++) {
-            matriz3[i][j] = matriz1[i][j];
+    for(let f=0;f<filas1;f++){
+        
+        for(let j=0;j<columnas1;j++){
+            let valor;
+            for(let x=0;x<columnas2;x++){
+                valor=+matriz1[f][j]*matriz2[j][x];
+            }
+            document.write(valor+" ");
         }
     }
-    for (let i = 0; i < filas2; i++) {
-        for (let j = 0; j < columnas2; j++) {
-            matriz3[i][j]=matriz3[i][j]*matriz2[i][j];
-        }
-    }
+    
     return matriz3;
 }
+
 alert("Opciones Disponibles:\n1.Multiplicación de una matriz por un escalar \n 2.Multiplicación de dos matrices");
 let opcion = parseInt(prompt("Que opción quieres realizar(1 o 2):"));
 if (opcion == 1) {
@@ -67,7 +69,7 @@ if (opcion == 1) {
 
     document.write("<br>");
 
-    multiplicarvaloresArray(filas, columnas, matriz, valor);
+    multiplicarValoresArray(filas, columnas, matriz, valor);
     recorrerArrayBidimensional(filas, columnas, matriz);
 } else {
     alert("Debo recordar que solo podremos trabajar con las matrices si sus dimensiones son por ejemplo X/3 y 3/Y");
@@ -95,7 +97,7 @@ if (opcion == 1) {
         document.write("<br>");
         document.write("Mostramos Operacion Matricial");
         let matriz=productoMatricial(filas1,columnas1,filas2,columnas2,matriz1,matriz2);
-        recorrerArrayBidimensional(filas1,columnas1,matriz2);
+        recorrerArrayBidimensional(filas1,columnas2,matriz);
 
     } else {
         alert("Las matrices no son compatibles FATAL ERROR 404");
