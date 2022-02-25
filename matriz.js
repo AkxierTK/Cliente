@@ -1,53 +1,63 @@
 'use strict'
-
-function rellenarArrayBidimensional(filas, columnas, matriz) {
+//la funcion crea una matriz con las filas y columnas dadas
+function creaArrayBidimensional(filas,columnas){
+    let matriz= new Array();
     for (let i = 0; i < filas; i++) {
-        for (let j = 0; j < columnas; j++) {
-            console.log("Pasada");
+       matriz[i]=new Array(columnas);
+        
+    }
+    return matriz;
+}
 
+//la funcion rellena el array con valores aleatorios comprendidos entre 10 y -10
+function rellenarArrayBidimensional(matriz) {
+    for (let i = 0; i < matriz.length; i++) {
+        for (let j = 0; j < matriz[0].length; j++) {
             let numeroAleatorio = Math.floor(Math.random() * (10 - -10)) + -10;
-            console.log(numeroAleatorio);
             matriz[i][j] = numeroAleatorio;
-            console.log(matriz[i][j]);
         }
     }
 }
-
-function recorrerArrayBidimensional(filas, columnas, matriz) {
-
-    for (let i = 0; i < filas; i++) {
-        for (let j = 0; j < columnas; j++) {
-            document.write(matriz[i][j] + "  ");
+//la funcion recorre el array mostrando los valores
+function recorrerArrayBidimensional(matriz) {
+    for (let i = 0; i < matriz.length; i++) {
+        for (let j = 0; j < matriz[0].length; j++) {
+            document.write("  " + matriz[i][j]);
         }
         document.write("<br>");
     }
 }
-
-function multiplicarValoresArray(filas, columnas, matriz, valor) {
-    for (let i = 0; i < filas; i++) {
-        for (let j = 0; j < columnas; j++) {
+//multiplica la matriz por el valor dado
+function multiplicarValoresArray(matriz, valor) {
+    for (let i = 0; i < matriz.length; i++) {
+        for (let j = 0; j < matriz[0].length; j++) {
             matriz[i][j] *= valor;
         }
 
     }
 }
-function productoMatricial(filas1, columnas1, filas2, columnas2, matriz1, matriz2) {
-   let matriz3 = new Array(filas1);
-    for (let f = 0; f < filas1; f++) {
-        matriz3[f] = new Array(columnas2);
+//la funcion va a multiplicar una matriz por otra dando como resultado una nueva
+function productoMatricial(matrizA, matrizB) {
+    //creamos la matriz a devolver que tendra de filas igual a las de la matriz1 y columnas iguales a las del matriz2
+    let matriz = new Array();
+    for (let i = 0; i < matrizA.length; i++) {
+        matriz[i] = new Array(matrizB[0].length);
     }
-    for(let f=0;f<filas1;f++){//2 matriz1=2/3 matriz2=3/3 matriz3=2/3 2 filas 
-        
-        for(let j=0;j<columnas2;j++){//3
-            let valor=0;
-            for(let x=0;x<columnas1;x++){//3
-                valor=valor+(matriz1[f][x]*matriz2[x][j]);
+    //se comienza el for para que se repita igual al número de filas de la primera 
+    for (let f = 0; f < matrizA.length; f++) {
+        // el for anidado se repetirá igual al número de columnas del segundo
+        for (let j = 0; j < matrizB[0].length; j++) {
+            let valor = 0;
+        // el ultimo for se repetirá  igual al número de columnas del primero
+            for (let x = 0; x < matrizB.length; x++) {
+                //con esto conseguimos que la matriz1 se recorra horizontalmente y la matriz2
+                valor += (matrizA[f][x] * matrizB[x][j]);
             }
-            matriz3[f][j]=valor;
+            matriz[f][j] = valor;
         }
     }
-    
-    return matriz3;
+
+    return matriz;
 }
 
 alert("Opciones Disponibles:\n1.Multiplicación de una matriz por un escalar \n 2.Multiplicación de dos matrices");
@@ -56,47 +66,39 @@ if (opcion == 1) {
     let filas = parseInt(prompt("Tamaño de filas de la matriz: "));
     let columnas = parseInt(prompt("Tamaño de columnas de la matriz: "));
     let valor = parseInt(prompt("Valor para multiplicar: "));
-    let matriz = new Array(columnas);
-    //Preguntar a Jose Juan 
-    for (let f = 0; f < filas; f++) {
-        matriz[f] = new Array(columnas);
-    }
-    rellenarArrayBidimensional(filas, columnas, matriz);
-
+    //creamos la matriz con los valores pedidos
+    let matriz=creaArrayBidimensional(filas,columnas);
+    rellenarArrayBidimensional(matriz);
 
     document.write("Mostramos el array creado:<br>");
-    recorrerArrayBidimensional(filas, columnas, matriz);
+
+    recorrerArrayBidimensional(matriz);
 
     document.write("<br>");
 
-    multiplicarValoresArray(filas, columnas, matriz, valor);
-    recorrerArrayBidimensional(filas, columnas, matriz);
+    multiplicarValoresArray(matriz, valor);
+    document.write("Mostramos el array multiplicado:<br>");
+    recorrerArrayBidimensional(matriz);
 } else {
     alert("Debo recordar que solo podremos trabajar con las matrices si sus dimensiones son por ejemplo X/3 y 3/Y");
     let filas1 = parseInt(prompt("Tamaño de filas de la matriz 1: "));
     let columnas1 = parseInt(prompt("Tamaño de columnas de la matriz 1: "));
     let filas2 = parseInt(prompt("Tamaño de filas de la matriz 2: "));
     let columnas2 = parseInt(prompt("Tamaño de columnas de la matriz 2: "));
+    //creamos las matrizes solo si son compatibles 
     if (columnas1 == filas2) {
-        let matriz1 = new Array(columnas1);
-        for (let f = 0; f < filas1; f++) {
-            matriz1[f] = new Array(columnas1);
-        }
-        let matriz2 = new Array(columnas2);
-
-        for (let f = 0; f < filas2; f++) {
-            matriz2[f] = new Array(columnas2);
-        }
-        rellenarArrayBidimensional(filas1, columnas1, matriz1);
-        rellenarArrayBidimensional(filas2, columnas2, matriz2);
+        //Ccreamos las matrizes con los valores dados
+        let matrizA=creaArrayBidimensional(filas1,columnas1);
+        let matrizB=creaArrayBidimensional(filas2,columnas2)
+        rellenarArrayBidimensional(matrizA);
+        rellenarArrayBidimensional(matrizB);
         document.write("Mostramos el array creado 1:<br>");
-        recorrerArrayBidimensional(filas1, columnas1, matriz1);
+        recorrerArrayBidimensional(matrizA);
         document.write("Mostramos el array creado 2:<br>");
-        recorrerArrayBidimensional(filas2, columnas2, matriz2);
-        document.write("Mostramos Operacion Matricial<br>");
-        let matriz=productoMatricial(filas1,columnas1,filas2,columnas2,matriz1,matriz2);
-        recorrerArrayBidimensional(filas1,columnas2,matriz);
-
+        recorrerArrayBidimensional(matrizB);
+        document.write("Mostramos Operacion Matricial:<br>");
+        let matrizC = productoMatricial(matrizA, matrizB);
+        recorrerArrayBidimensional(matrizC);
     } else {
         alert("Las matrices no son compatibles FATAL ERROR 404");
     }
